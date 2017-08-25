@@ -1,2 +1,2 @@
 # Viaje-al-centro-de-la-Bombonera
-El fantasma de la B
+///Posible titulo del juego///
