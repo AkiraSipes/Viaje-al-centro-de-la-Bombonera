@@ -1,0 +1,5 @@
+El jugador controlara una nave espacial y se enfrentara a una ola de naves enemigas.
+Movimiento de la nave derecho TECLA FLECHA DERECHA o TECLA D
+Movimiento de la nave izquierdo TECLA FLECHA IZQUIERDA o TECLA A
+Disparar misiles BARRA ESPACIADORA
+El Juego es un survival mode, el jugador debera resistir el mayor tiempo posible vivo y asi ganar puntos,a medida que el tiempo transcurra la ola de naves enemigas ira en aumento. 

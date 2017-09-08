@@ -1,3 +1,6 @@
+"""Trabajo Practico Seminario de Lenguajes
+Nombre del Juego: Invacion Alienigena
+Integrantes del Grupo:Akira Molas-Esteban Rodriguez-Nicolas Romero-Oscar Ruina"""
 import pygame,sys
 from pygame.locals import *
 from Nave import NaveEspacial
