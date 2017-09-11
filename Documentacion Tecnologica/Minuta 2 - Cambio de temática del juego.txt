@@ -1,0 +1,5 @@
+CAMBIO DE TEMÁTICA DEL JUEGO
+Fecha y hora: lunes 4 de septiembre de 2017, 10:50 hs
+
+En conjunto con los integrantes del grupo hemos decidido cambiar la temática del juego por cuestiones de dificultades y tiempo, ya al ser la primera vez que utilizamos el lenguaje de programación Python y la librería Pygame la anterior idea probablemente llevaría un plazo mayor al pedido en el proyecto.
+En pleno desarrollo, la temática pasará a ser la de una batalla espacial dónde un protagonista humano a bordo de una nave deberá defender al planeta Tierra de los ataques alienígenas de todas partes de la Galaxia que se disputan a toda costa el control de la misma. Al estilo 'survival mode', se deberá permanecer el mayor tiempo posible atacando a los "enemigos" hasta derrotarlos a medida que la dificultad vaya en aumento.
