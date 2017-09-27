@@ -3,8 +3,8 @@ from Proyectil import Proyectil
 class NaveEspacial(pygame.sprite.Sprite):
     def __init__(self,ancho,alto):
         pygame.sprite.Sprite.__init__(self)
-        self.imagenNave=pygame.image.load('imagenes/nave.jpg')
-        self.imagenDestruccion=pygame.image.load('imagenes/explosion.jpg')
+        self.imagenNave=pygame.image.load('imagenes/nave.png')
+        self.imagenDestruccion=pygame.image.load('imagenes/explosion.png')
         self.rect=self.imagenNave.get_rect()
         self.rect.centerx=ancho/2
         self.rect.centery=alto-30
@@ -30,7 +30,7 @@ class NaveEspacial(pygame.sprite.Sprite):
                 self.rect.right=899
     
     def disparar(self,x,y):
-        miProyectil=Proyectil(x,y,'imagenes/disparoa.jpg',True)
+        miProyectil=Proyectil(x,y,'imagenes/disparoa.png',True)
         self.listaDisparo.append(miProyectil)
         self.sonidoDisparo.play()
     

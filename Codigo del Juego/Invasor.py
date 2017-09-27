@@ -44,7 +44,7 @@ class Invasor(pygame.sprite.Sprite):
      
     def __disparo(self):
         x,y=self.rect.center
-        miProyectil=Proyectil(x,y,'imagenes/disparob.jpg',False)
+        miProyectil=Proyectil(x,y,'imagenes/disparob.png',False)
         self.listaDisparo.append(miProyectil)
         
     def __movimiento(self):

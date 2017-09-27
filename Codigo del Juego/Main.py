@@ -19,17 +19,17 @@ def detenerTodo():
 def cargarEnemigos():
     posx=100
     for x in range(1,5):
-        enemigo=Enemigo(posx,100,40,'imagenes/marcianoA.jpg','imagenes/MarcianoB.jpg')
+        enemigo=Enemigo(posx,100,40,'imagenes/marcianoA.png','imagenes/MarcianoB.png')
         listaEnemigo.append(enemigo)
         posx=posx+200
     posx=100
     for x in range(1,5):
-        enemigo=Enemigo(posx,0,40,'imagenes/Marciano2A.jpg','imagenes/Marciano2B.jpg')
+        enemigo=Enemigo(posx,0,40,'imagenes/Marciano2A.png','imagenes/Marciano2B.png')
         listaEnemigo.append(enemigo)
         posx=posx+200
     posx=100
     for x in range(1,5):
-        enemigo=Enemigo(posx,-100,40,'imagenes/Marciano3A.jpg','imagenes/Marciano3B.jpg')
+        enemigo=Enemigo(posx,-100,40,'imagenes/Maricano3A.png','imagenes/Marciano3B.png')
         listaEnemigo.append(enemigo)
         posx=posx+200
 #/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
