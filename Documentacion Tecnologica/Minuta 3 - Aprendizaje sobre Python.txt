@@ -1,4 +1,0 @@
-APRENDIZAJE SOBRE PYTHON
-Fecha y hora: jueves 31 de agosto de 2017, 11:55 hs
-
-Dada la nula experiencia en el lenguaje de programación Python como así también en el manejo de librerías el grupo pasará durante unas semanas leyendo y practicando con tutoriales en Internet para tener los conocimientos necesarios para el desarrollo del juego según lo solicitado en la materia.
