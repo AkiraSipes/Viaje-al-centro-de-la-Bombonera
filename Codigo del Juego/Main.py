@@ -19,7 +19,7 @@ def detenerTodo():
 def cargarEnemigos():
     posx=100
     for x in range(1,5):
-        enemigo=Enemigo(posx,100,40,'imagenes/marcianoA.png','imagenes/MarcianoB.png')
+        enemigo=Enemigo(posx,100,40,'imagenes/MarcianoA.png','imagenes/MarcianoB.png')
         listaEnemigo.append(enemigo)
         posx=posx+200
     posx=100
@@ -39,8 +39,6 @@ def SpaceInvader():
     pygame.display.set_caption("Invasion Alienigena")
     pygame.mixer.music.load('musica/medley.mp3')
     pygame.mixer.music.play(3)
-    fuente=pygame.font.SysFont("Arial",30)
-    texto=fuente.render("Fin del Juego",0,(120,100,40))
     activar=True
     fondo=pygame.image.load('imagenes/Fondo.jpg')
     jugador=NaveEspacial(ancho,alto)
@@ -100,8 +98,10 @@ def SpaceInvader():
                                     jugador.listaDisparo.remove(disparo)
                                     enemigo.listaDisparo.remove(x)                
         if enJuego==False:
+            ventana.blit(fondo,(0,0))
+            fondo=pygame.image.load('imagenes/gameover.jpg')
             pygame.mixer.music.fadeout(3000)
-            ventana.blit(texto,(300,300))
+            
         pygame.display.update()
 #/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 SpaceInvader()
