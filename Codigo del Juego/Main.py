@@ -29,7 +29,7 @@ def cargarEnemigos():
         posx=posx+200
     posx=100
     for x in range(1,5):
-        enemigo=Enemigo(posx,-100,40,'imagenes/Maricano3A.png','imagenes/Marciano3B.png')
+        enemigo=Enemigo(posx,-100,40,'imagenes/Marciano3A.png','imagenes/Marciano3B.png')
         listaEnemigo.append(enemigo)
         posx=posx+200
 #/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
