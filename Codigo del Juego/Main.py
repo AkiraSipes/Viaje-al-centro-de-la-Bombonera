@@ -39,20 +39,20 @@ def SpaceInvader():
     pygame.display.set_caption("Invasion Alienigena")
     pygame.mixer.music.load('musica/medley.mp3')
     pygame.mixer.music.play(3)
-    activar=True
     fondo=pygame.image.load('imagenes/Fondo.jpg')
     jugador=NaveEspacial(ancho,alto)
     cargarEnemigos()
-    enJuego=True
     reloj=pygame.time.Clock()
-    while activar:
+    salirJuego=False
+    finJuego=False
+    while not salirJuego:
         reloj.tick(60)
         tiempo=pygame.time.get_ticks()//1000
         for evento in pygame.event.get():
             if evento.type==pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            if enJuego==True:
+            if finJuego==False:
                 if evento.type==pygame.KEYDOWN:
                     if evento.key==K_LEFT or evento.key==K_a:
                         jugador.movimientoIzquierda()
@@ -80,16 +80,16 @@ def SpaceInvader():
                 enemigo.dibujar(ventana)
                 if enemigo.rect.colliderect(jugador.rect):
                     jugador.destruccion()
-                    enJuego=False
                     detenerTodo()
+                    finJuego=True
                 if len(enemigo.listaDisparo)>0:
                     for x in enemigo.listaDisparo:
                         x.dibujar(ventana)
                         x.trayectoria()
                         if x.rect.colliderect(jugador.rect):
                             jugador.destruccion()
-                            enJuego=False
                             detenerTodo()
+                            finJuego=True
                         if x.rect.top>900:
                             enemigo.listaDisparo.remove(x)
                         else:
@@ -97,11 +97,18 @@ def SpaceInvader():
                                 if x.rect.colliderect(disparo.rect):
                                     jugador.listaDisparo.remove(disparo)
                                     enemigo.listaDisparo.remove(x)                
-        if enJuego==False:
+        #loop para reiniciar el juego
+        if finJuego==True:
             ventana.blit(fondo,(0,0))
             fondo=pygame.image.load('imagenes/gameover.jpg')
             pygame.mixer.music.fadeout(3000)
-            
+            for evento in pygame.event.get():
+                if evento.type==pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()  
+                if evento.type==pygame.KEYDOWN:
+                    if evento.key==pygame.K_c:
+                        SpaceInvader()    
         pygame.display.update()
 #/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 SpaceInvader()
