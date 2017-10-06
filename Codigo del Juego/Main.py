@@ -9,6 +9,11 @@ from Invasor import Invasor as Enemigo
 ancho=900
 alto=480
 listaEnemigo=[]
+#///////////////////////////////////////////////////////////////////////////////
+#Creacion de ventana de Inicio
+pygame.init()
+pygame.display.set_caption("Invasion Alienigena")
+ventana=pygame.display.set_mode((ancho,alto))
 #/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 def detenerTodo():
     for enemigo in listaEnemigo:
@@ -27,27 +32,26 @@ def cargarEnemigos():
         enemigo=Enemigo(posx,0,40,'imagenes/Marciano2A.png','imagenes/Marciano2B.png')
         listaEnemigo.append(enemigo)
         posx=posx+200
+        pygame.display.update()
     posx=100
     for x in range(1,5):
         enemigo=Enemigo(posx,-100,40,'imagenes/Marciano3A.png','imagenes/Marciano3B.png')
         listaEnemigo.append(enemigo)
         posx=posx+200
+        pygame.display.update()
 #/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 def SpaceInvader():
-    pygame.init()
-    ventana=pygame.display.set_mode((ancho,alto))
-    pygame.display.set_caption("Invasion Alienigena")
     pygame.mixer.music.load('musica/medley.mp3')
     pygame.mixer.music.play(3)
     fondo=pygame.image.load('imagenes/Fondo.jpg')
     jugador=NaveEspacial(ancho,alto)
     cargarEnemigos()
     reloj=pygame.time.Clock()
+    tiempo=pygame.time.get_ticks()
     salirJuego=False
     finJuego=False
     while not salirJuego:
         reloj.tick(60)
-        tiempo=pygame.time.get_ticks()//1000
         for evento in pygame.event.get():
             if evento.type==pygame.QUIT:
                 pygame.quit()
@@ -99,16 +103,17 @@ def SpaceInvader():
                                     enemigo.listaDisparo.remove(x)                
         #loop para reiniciar el juego
         if finJuego==True:
-            ventana.blit(fondo,(0,0))
-            fondo=pygame.image.load('imagenes/gameover.jpg')
-            pygame.mixer.music.fadeout(3000)
-            for evento in pygame.event.get():
-                if evento.type==pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()  
-                if evento.type==pygame.KEYDOWN:
-                    if evento.key==pygame.K_c:
-                        SpaceInvader()    
+            if(pygame.time.get_ticks()-tiempo)>3000:#retardo para que la pantalla de game over no apraezca muy pronto
+                fondo=pygame.image.load('imagenes/gameover.jpg')
+                ventana.blit(fondo,(0,0))
+                pygame.mixer.music.fadeout(3000)
+                for evento in pygame.event.get():
+                    if evento.type==pygame.QUIT:
+                        pygame.quit()
+                        sys.exit()  
+                    if evento.type==pygame.KEYDOWN:
+                        if evento.key==pygame.K_c:
+                            SpaceInvader()    
         pygame.display.update()
 #/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 SpaceInvader()
