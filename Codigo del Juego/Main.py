@@ -124,7 +124,7 @@ def SpaceInvader():
         #loop para reiniciar el juego si gana
         if jugador.victoria==True:
             if(pygame.time.get_ticks()-tiempo)>3000:#retardo para que la pantalla de game over no apraezca muy pronto
-                fondo=pygame.image.load('imagenes/gameover.jpg')
+                fondo=pygame.image.load('imagenes/win.jpg')
                 ventana.blit(fondo,(0,0))
                 pygame.mixer.music.fadeout(3000)
                 if len(listaEnemigo)>0:
