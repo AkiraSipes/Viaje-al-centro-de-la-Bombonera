@@ -32,13 +32,11 @@ def cargarEnemigos():
         enemigo=Enemigo(posx,0,40,'imagenes/Marciano2A.png','imagenes/Marciano2B.png')
         listaEnemigo.append(enemigo)
         posx=posx+200
-        pygame.display.update()
     posx=100
     for x in range(1,5):
         enemigo=Enemigo(posx,-100,40,'imagenes/Marciano3A.png','imagenes/Marciano3B.png')
         listaEnemigo.append(enemigo)
         posx=posx+200
-        pygame.display.update()
 #/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 def SpaceInvader():
     pygame.mixer.music.load('musica/medley.mp3')
@@ -107,6 +105,13 @@ def SpaceInvader():
                 fondo=pygame.image.load('imagenes/gameover.jpg')
                 ventana.blit(fondo,(0,0))
                 pygame.mixer.music.fadeout(3000)
+                if len(listaEnemigo)>0:
+                    for enemigo in listaEnemigo:
+                        listaEnemigo.remove(enemigo)
+                    for enemigo in listaEnemigo:
+                        listaEnemigo.remove(enemigo)
+                    for enemigo in listaEnemigo:
+                        listaEnemigo.remove(enemigo)
                 for evento in pygame.event.get():
                     if evento.type==pygame.QUIT:
                         pygame.quit()
@@ -117,3 +122,4 @@ def SpaceInvader():
         pygame.display.update()
 #/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 SpaceInvader()
+
