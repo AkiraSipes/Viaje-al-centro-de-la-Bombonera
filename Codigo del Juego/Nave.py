@@ -10,6 +10,7 @@ class NaveEspacial(pygame.sprite.Sprite):
         self.rect.centery=alto-30
         self.listaDisparo=[]
         self.vida=True
+        self.victoria=False
         self.velocidad=20
         self.sonidoDisparo=pygame.mixer.Sound('musica/player_wpn1.ogg')
         self.sonidoDestruccion=pygame.mixer.Sound('musica/player_dead.ogg')

@@ -21,7 +21,26 @@ def detenerTodo():
             enemigo.listaDisparo.remove(disparo)
         enemigo.conquista=True        
 #/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-def cargarEnemigos():
+def nivelUno():
+    posx=100
+    for x in range(1,5):
+        enemigo=Enemigo(posx,100,40,'imagenes/MarcianoA.png','imagenes/MarcianoB.png')
+        listaEnemigo.append(enemigo)
+        posx=posx+200
+#////////////////////////////////////////////////////////////////////////////////
+def nivelDos():
+    posx=100
+    for x in range(1,5):
+        enemigo=Enemigo(posx,100,40,'imagenes/MarcianoA.png','imagenes/MarcianoB.png')
+        listaEnemigo.append(enemigo)
+        posx=posx+200
+    posx=100
+    for x in range(1,5):
+        enemigo=Enemigo(posx,0,40,'imagenes/Marciano2A.png','imagenes/Marciano2B.png')
+        listaEnemigo.append(enemigo)
+        posx=posx+200
+#///////////////////////////////////////////////////////////////////////////////        
+def nivelTres():
     posx=100
     for x in range(1,5):
         enemigo=Enemigo(posx,100,40,'imagenes/MarcianoA.png','imagenes/MarcianoB.png')
@@ -43,7 +62,7 @@ def SpaceInvader():
     pygame.mixer.music.play(3)
     fondo=pygame.image.load('imagenes/Fondo.jpg')
     jugador=NaveEspacial(ancho,alto)
-    cargarEnemigos()
+    nivelTres()
     reloj=pygame.time.Clock()
     tiempo=pygame.time.get_ticks()
     salirJuego=False
@@ -99,7 +118,31 @@ def SpaceInvader():
                                 if x.rect.colliderect(disparo.rect):
                                     jugador.listaDisparo.remove(disparo)
                                     enemigo.listaDisparo.remove(x)                
-        #loop para reiniciar el juego
+        else:
+            if len(listaEnemigo)<=0:
+                jugador.victoria=True
+        #loop para reiniciar el juego si gana
+        if jugador.victoria==True:
+            if(pygame.time.get_ticks()-tiempo)>3000:#retardo para que la pantalla de game over no apraezca muy pronto
+                fondo=pygame.image.load('imagenes/gameover.jpg')
+                ventana.blit(fondo,(0,0))
+                pygame.mixer.music.fadeout(3000)
+                if len(listaEnemigo)>0:
+                    for enemigo in listaEnemigo:
+                        listaEnemigo.remove(enemigo)
+                    for enemigo in listaEnemigo:
+                        listaEnemigo.remove(enemigo)
+                    for enemigo in listaEnemigo:
+                        listaEnemigo.remove(enemigo)
+                for evento in pygame.event.get():
+                    if evento.type==pygame.QUIT:
+                        pygame.quit()
+                        sys.exit()  
+                    if evento.type==pygame.KEYDOWN:
+                        if evento.key==pygame.K_c:
+                            SpaceInvader()           
+                            
+        #loop para reiniciar el juego si pierde
         if finJuego==True:
             if(pygame.time.get_ticks()-tiempo)>3000:#retardo para que la pantalla de game over no apraezca muy pronto
                 fondo=pygame.image.load('imagenes/gameover.jpg')
