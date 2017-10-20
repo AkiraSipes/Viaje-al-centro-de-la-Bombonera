@@ -14,6 +14,11 @@ listaEnemigo=[]
 pygame.init()
 pygame.display.set_caption("Invasion Alienigena")
 ventana=pygame.display.set_mode((ancho,alto))
+#///////////////////////////////////////////////////////////////////////////////
+def pantalla():
+    pygame.display.update()
+    pantalla=pygame.image.load('imagenes/win.jpg')
+    ventana.blit(pantalla,(0,0))
 #/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 def detenerTodo():
     for enemigo in listaEnemigo:
@@ -58,6 +63,16 @@ def nivelTres():
         posx=posx+200
 #/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 def SpaceInvader():
+    inicio=False
+    while not inicio:
+        pantalla()
+        for evento in pygame.event.get():
+            if evento.type==pygame.QUIT:
+                pygame.quit()
+                sys.exit()  
+            if evento.type==pygame.KEYDOWN:
+                if evento.key==pygame.K_RETURN:#return=enter
+                    inicio=True   
     pygame.mixer.music.load('musica/medley.mp3')
     pygame.mixer.music.play(3)
     fondo=pygame.image.load('imagenes/Fondo.jpg')
