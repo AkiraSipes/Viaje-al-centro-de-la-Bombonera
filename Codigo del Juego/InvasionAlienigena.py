@@ -9,16 +9,83 @@ from Invasor import Invasor as Enemigo
 ancho=900
 alto=480
 listaEnemigo=[]
+negro=(0,0,0)
+blanco=(255,255,255)
+verde=(0,255,0)
 #///////////////////////////////////////////////////////////////////////////////
 #Creacion de ventana de Inicio
 pygame.init()
 pygame.display.set_caption("Invasion Alienigena")
 ventana=pygame.display.set_mode((ancho,alto))
 #///////////////////////////////////////////////////////////////////////////////
+fuentechica=pygame.font.SysFont("Arial",25)
+fuentemediana=pygame.font.SysFont("Arial",50)
+fuentegrande=pygame.font.SysFont("Arial",80)
+#///////////////////////////////////////////////////////////////////////////////
+def menu():
+    loopMenu=False
+    while not loopMenu:
+        pantalla()
+        for evento in pygame.event.get():
+            if evento.type==pygame.QUIT:
+                pygame.quit()
+                sys.exit()  
+            if evento.type==pygame.KEYDOWN:
+                if evento.key==pygame.K_RETURN:#return=enter
+                    SpaceInvader()
+                if evento.key==pygame.K_m:
+                    while not loopMenu and not evento.key==K_RETURN:
+                        manual()
+                if evento.key==pygame.K_p:
+                    pass
+                if evento.key==pygame.K_s:
+                    pygame.quit()
+                    sys.exit()
+#///////////////////////////////////////////////////////////////////////////////
 def pantalla():
     pygame.display.update()
-    pantalla=pygame.image.load('imagenes/inicio.jpg')
-    ventana.blit(pantalla,(0,0))
+    ventana.fill(negro)
+    mensaje("Invacion Alienigena",verde,desplazamientoY=-190,tamaño="grande")
+    mensaje("MENU",blanco,-100,tamaño="mediano")
+    mensaje("JUGAR Presione la tecla ENTER",blanco,-50,tamaño="chico")
+    mensaje("MANUAL DE USO Presione la tecla M",blanco,-10,tamaño="chico")
+    mensaje("PUNTAJE Presione la tecla P",blanco,30,tamaño="chico")
+    mensaje("SALIR Presione la tecla S",blanco,70,tamaño="chico")
+#///////////////////////////////////////////////////////////////////////////////
+def objeto_texto(texto,color,tamaño):
+    if tamaño=="chico":
+        textSurface=fuentechica.render(texto,True,color)
+    elif tamaño=="mediano":
+        textSurface=fuentemediana.render(texto,True,color)
+    elif tamaño=="grande":
+        textSurface=fuentegrande.render(texto,True,color)
+    return textSurface,textSurface.get_rect()
+#///////////////////////////////////////////////////////////////////////////////
+def mensaje(msg,color,desplazamientoY=0,tamaño="chico"):
+    textSurf,textRect=objeto_texto(msg,color,tamaño)
+    textRect.center=(ancho/2),(alto/2)+desplazamientoY
+    ventana.blit(textSurf,textRect)
+#///////////////////////////////////////////////////////////////////////////////
+def puntajeJuego(puntaje):
+      fuenteP=pygame.font.SysFont("Arial",25,True,False)
+      contador=fuenteP.render("Puntaje: " + str(puntaje),0,blanco)
+      ventana.blit(contador,(0,0))
+#///////////////////////////////////////////////////////////////////////////////
+def manual():
+    ventana.fill(blanco)
+    for evento in pygame.event.get():
+        if evento.type==pygame.QUIT:
+                pygame.quit()
+                sys.exit()  
+        if evento.type==pygame.KEYDOWN:
+            if evento.key==pygame.K_ESCAPE:
+                menu()
+    mensaje("Las teclas para mover la nave y disparar son:",negro,-50,tamaño="chico")
+    mensaje("-Movimiento de la nave derecho TECLA FLECHA DERECHA o TECLA D",negro,-25,tamaño="chico")
+    mensaje("-Movimiento de la nave izquierdo TECLA FLECHA IZQUIERDA o TECLA A",negro,0,tamaño="chico")
+    mensaje("-Disparar misiles BARRA ESPACIADORA",negro,25,tamaño="chico")
+    mensaje("Ir al menu presione la tecla Esc",negro,50,tamaño="chico")
+    pygame.display.update()
 #/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 def detenerTodo():
     for enemigo in listaEnemigo:
@@ -63,21 +130,12 @@ def nivelTres():
         posx=posx+200
 #/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 def SpaceInvader():
-    inicio=False
-    while not inicio:
-        pantalla()
-        for evento in pygame.event.get():
-            if evento.type==pygame.QUIT:
-                pygame.quit()
-                sys.exit()  
-            if evento.type==pygame.KEYDOWN:
-                if evento.key==pygame.K_RETURN:#return=enter
-                    inicio=True   
     pygame.mixer.music.load('musica/medley.mp3')
     pygame.mixer.music.play(3)
     fondo=pygame.image.load('imagenes/Fondo.jpg')
     jugador=NaveEspacial(ancho,alto)
     nivelTres()
+    puntaje=0
     reloj=pygame.time.Clock()
     tiempo=pygame.time.get_ticks()
     salirJuego=False
@@ -99,6 +157,7 @@ def SpaceInvader():
                         jugador.disparar(x,y)
         ventana.blit(fondo,(0,0))
         jugador.dibujar(ventana)
+        puntajeJuego(puntaje)
         if len(jugador.listaDisparo)>0:
             for i in jugador.listaDisparo:
                 i.dibujar(ventana)
@@ -108,8 +167,9 @@ def SpaceInvader():
                 else:
                     for enemigo in listaEnemigo:
                         if i.rect.colliderect(enemigo.rect):
+                            puntaje+=10
                             listaEnemigo.remove(enemigo)
-                            jugador.listaDisparo.remove(i)    
+                            jugador.listaDisparo.remove(i)
         if len(listaEnemigo)>0:
             for enemigo in listaEnemigo:
                 enemigo.comportamiento(tiempo)
@@ -155,8 +215,7 @@ def SpaceInvader():
                         sys.exit()  
                     if evento.type==pygame.KEYDOWN:
                         if evento.key==pygame.K_c:
-                            SpaceInvader()           
-                            
+                            menu()
         #loop para reiniciar el juego si pierde
         if finJuego==True:
             if(pygame.time.get_ticks()-tiempo)>3000:#retardo para que la pantalla de game over no apraezca muy pronto
@@ -176,8 +235,8 @@ def SpaceInvader():
                         sys.exit()  
                     if evento.type==pygame.KEYDOWN:
                         if evento.key==pygame.K_c:
-                            SpaceInvader()    
+                            menu()
+        
         pygame.display.update()
 #/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-SpaceInvader()
-
+menu()
