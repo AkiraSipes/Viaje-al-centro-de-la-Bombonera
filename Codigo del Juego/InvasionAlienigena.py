@@ -12,6 +12,7 @@ listaEnemigo=[]
 negro=(0,0,0)
 blanco=(255,255,255)
 verde=(0,255,0)
+#puntajeF=0
 #///////////////////////////////////////////////////////////////////////////////
 #Creacion de ventana de Inicio
 pygame.init()
@@ -38,6 +39,9 @@ def menu():
                         manual()
                 if evento.key==pygame.K_p:
                     pass
+                if evento.key==pygame.K_d:
+                    while not loopMenu and not evento.key==K_RETURN:
+                        verCreditos()
                 if evento.key==pygame.K_s:
                     pygame.quit()
                     sys.exit()
@@ -49,7 +53,8 @@ def pantalla():
     mensaje("MENU",blanco,-100,tamaño="mediano")
     mensaje("JUGAR Presione la tecla ENTER",blanco,-50,tamaño="chico")
     mensaje("MANUAL DE USO Presione la tecla M",blanco,-10,tamaño="chico")
-    mensaje("PUNTAJE Presione la tecla P",blanco,30,tamaño="chico")
+    #mensaje("PUNTAJE Presione la tecla P",blanco,30,tamaño="chico")
+    mensaje("CREDITOS Presione la tecla D",blanco,30,tamaño="chico")
     mensaje("SALIR Presione la tecla S",blanco,70,tamaño="chico")
 #///////////////////////////////////////////////////////////////////////////////
 def objeto_texto(texto,color,tamaño):
@@ -85,6 +90,40 @@ def manual():
     mensaje("-Movimiento de la nave izquierdo TECLA FLECHA IZQUIERDA o TECLA A",negro,0,tamaño="chico")
     mensaje("-Disparar misiles BARRA ESPACIADORA",negro,25,tamaño="chico")
     mensaje("Ir al menu presione la tecla Esc",negro,50,tamaño="chico")
+    pygame.display.update()
+#///////////////////////////////////////////////////////////////////////////////
+def verPuntaje(puntaje):
+    ventana.fill(blanco)
+    for evento in pygame.event.get():
+        if evento.type==pygame.QUIT:
+            pygame.quit()
+            sys.exit()  
+        if evento.type==pygame.KEYDOWN:
+            if evento.key==pygame.K_ESCAPE:
+                menu()
+    mensaje("Ultimo Puntaje:",negro,-200,tamaño="mediano")
+    mensaje("Puntaje :"+str(puntaje),negro,-50,tamaño="chico")
+    mensaje("Ir al menu presione la tecla ESC",negro,50,tamaño="chico")
+    pygame.display.update()
+#///////////////////////////////////////////////////////////////////////////////
+def verCreditos():
+    ventana.fill(blanco)
+    for evento in pygame.event.get():
+        if evento.type==pygame.QUIT:
+                pygame.quit()
+                sys.exit()  
+        if evento.type==pygame.KEYDOWN:
+            if evento.key==pygame.K_ESCAPE:
+                menu()
+    mensaje("CREDITOS",negro,-200,tamaño="mediano")
+    mensaje("Codificacion y resolucion de problemas:",negro,-100,tamaño="chico")
+    mensaje("Molas Akira",negro,-75,tamaño="chico")
+    mensaje("Ruina Oscar",negro,-50,tamaño="chico")
+    mensaje("Imagenes y Sonido:",negro,-20,tamaño="chico")
+    mensaje("Romero Ortiz Nicolas",negro,0,tamaño="chico")
+    mensaje("Mantenimiento de la documentacion,diseño del juego:",negro,30,tamaño="chico")
+    mensaje("Rodriguez Esteban",negro,50,tamaño="chico")
+    mensaje("Ir al menu presione la tecla Esc",negro,100,tamaño="chico")
     pygame.display.update()
 #/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 def detenerTodo():
@@ -157,7 +196,7 @@ def SpaceInvader():
                         jugador.disparar(x,y)
         ventana.blit(fondo,(0,0))
         jugador.dibujar(ventana)
-        puntajeJuego(puntaje)
+        puntajeJuego(puntaje)#muestra puntaje en la ventana
         if len(jugador.listaDisparo)>0:
             for i in jugador.listaDisparo:
                 i.dibujar(ventana)
@@ -167,9 +206,9 @@ def SpaceInvader():
                 else:
                     for enemigo in listaEnemigo:
                         if i.rect.colliderect(enemigo.rect):
-                            puntaje+=10
                             listaEnemigo.remove(enemigo)
                             jugador.listaDisparo.remove(i)
+                            puntaje+=10#suma puntaje por cada enemigo destruido
         if len(listaEnemigo)>0:
             for enemigo in listaEnemigo:
                 enemigo.comportamiento(tiempo)
@@ -199,8 +238,12 @@ def SpaceInvader():
         #loop para reiniciar el juego si gana
         if jugador.victoria==True:
             if(pygame.time.get_ticks()-tiempo)>3000:#retardo para que la pantalla de game over no apraezca muy pronto
-                fondo=pygame.image.load('imagenes/win.jpg')
-                ventana.blit(fondo,(0,0))
+                #fondo=pygame.image.load('imagenes/win.jpg')
+                #ventana.blit(fondo,(0,0))
+                ventana.fill(negro)
+                mensaje("YOU WIN!!!",blanco,-100,tamaño="mediano")
+                mensaje("Presione C para volver al menu",blanco,0,tamaño="chico")
+                mensaje("Presione P para ver Puntaje",blanco,50,tamaño="chico")
                 pygame.mixer.music.fadeout(3000)
                 if len(listaEnemigo)>0:
                     for enemigo in listaEnemigo:
@@ -214,13 +257,20 @@ def SpaceInvader():
                         pygame.quit()
                         sys.exit()  
                     if evento.type==pygame.KEYDOWN:
+                        if evento.key==pygame.K_p:
+                            while not salirJuego and not evento.key==pygame.K_c:
+                                verPuntaje(puntaje)
                         if evento.key==pygame.K_c:
                             menu()
         #loop para reiniciar el juego si pierde
         if finJuego==True:
             if(pygame.time.get_ticks()-tiempo)>3000:#retardo para que la pantalla de game over no apraezca muy pronto
-                fondo=pygame.image.load('imagenes/gameover.jpg')
-                ventana.blit(fondo,(0,0))
+                #fondo=pygame.image.load('imagenes/gameover.jpg')
+                #ventana.blit(fondo,(0,0))
+                ventana.fill(negro)
+                mensaje("GAME OVER",blanco,-100,tamaño="mediano")
+                mensaje("Presione C para volver al menu",blanco,0,tamaño="chico")
+                mensaje("Presione P para ver Puntaje",blanco,50,tamaño="chico")
                 pygame.mixer.music.fadeout(3000)
                 if len(listaEnemigo)>0:
                     for enemigo in listaEnemigo:
@@ -232,11 +282,14 @@ def SpaceInvader():
                 for evento in pygame.event.get():
                     if evento.type==pygame.QUIT:
                         pygame.quit()
-                        sys.exit()  
+                        sys.exit()
                     if evento.type==pygame.KEYDOWN:
+                        if evento.key==pygame.K_p:
+                            while not salirJuego and not evento.key==pygame.K_c:
+                                verPuntaje(puntaje)
                         if evento.key==pygame.K_c:
                             menu()
-        
         pygame.display.update()
 #/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 menu()
+
