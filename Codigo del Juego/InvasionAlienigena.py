@@ -48,14 +48,8 @@ def menu():
 #///////////////////////////////////////////////////////////////////////////////
 def pantalla():
     pygame.display.update()
-    ventana.fill(negro)
-    mensaje("Invacion Alienigena",verde,desplazamientoY=-190,tamaño="grande")
-    mensaje("MENU",blanco,-100,tamaño="mediano")
-    mensaje("JUGAR Presione la tecla ENTER",blanco,-50,tamaño="chico")
-    mensaje("MANUAL DE USO Presione la tecla M",blanco,-10,tamaño="chico")
-    #mensaje("PUNTAJE Presione la tecla P",blanco,30,tamaño="chico")
-    mensaje("CREDITOS Presione la tecla D",blanco,30,tamaño="chico")
-    mensaje("SALIR Presione la tecla S",blanco,70,tamaño="chico")
+    fondo=pygame.image.load('imagenes/Menu.jpg')
+    ventana.blit(fondo,(0,0))
 #///////////////////////////////////////////////////////////////////////////////
 def objeto_texto(texto,color,tamaño):
     if tamaño=="chico":
@@ -238,12 +232,8 @@ def SpaceInvader():
         #loop para reiniciar el juego si gana
         if jugador.victoria==True:
             if(pygame.time.get_ticks()-tiempo)>3000:#retardo para que la pantalla de game over no apraezca muy pronto
-                #fondo=pygame.image.load('imagenes/win.jpg')
-                #ventana.blit(fondo,(0,0))
-                ventana.fill(negro)
-                mensaje("YOU WIN!!!",blanco,-100,tamaño="mediano")
-                mensaje("Presione C para volver al menu",blanco,0,tamaño="chico")
-                mensaje("Presione P para ver Puntaje",blanco,50,tamaño="chico")
+                fondo=pygame.image.load('imagenes/win.jpg')
+                ventana.blit(fondo,(0,0))
                 pygame.mixer.music.fadeout(3000)
                 if len(listaEnemigo)>0:
                     for enemigo in listaEnemigo:
@@ -265,12 +255,8 @@ def SpaceInvader():
         #loop para reiniciar el juego si pierde
         if finJuego==True:
             if(pygame.time.get_ticks()-tiempo)>3000:#retardo para que la pantalla de game over no apraezca muy pronto
-                #fondo=pygame.image.load('imagenes/gameover.jpg')
-                #ventana.blit(fondo,(0,0))
-                ventana.fill(negro)
-                mensaje("GAME OVER",blanco,-100,tamaño="mediano")
-                mensaje("Presione C para volver al menu",blanco,0,tamaño="chico")
-                mensaje("Presione P para ver Puntaje",blanco,50,tamaño="chico")
+                fondo=pygame.image.load('imagenes/gameover.jpg')
+                ventana.blit(fondo,(0,0))
                 pygame.mixer.music.fadeout(3000)
                 if len(listaEnemigo)>0:
                     for enemigo in listaEnemigo:
