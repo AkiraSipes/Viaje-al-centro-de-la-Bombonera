@@ -12,7 +12,6 @@ listaEnemigo=[]
 negro=(0,0,0)
 blanco=(255,255,255)
 verde=(0,255,0)
-#puntajeF=0
 #///////////////////////////////////////////////////////////////////////////////
 #Creacion de ventana de Inicio
 pygame.init()
